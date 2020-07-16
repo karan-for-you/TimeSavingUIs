@@ -3,7 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:padding="10dp"
+
     android:background="@color/white"
     android:id="@+id/clView"
     android:layout_width="match_parent"
@@ -12,9 +12,12 @@
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cvCircularView"
+        android:layout_marginStart="@dimen/ten_dp"
+        android:layout_marginTop="@dimen/ten_dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
+        android:elevation="10dp"
         android:shape="ring"
         app:cardCornerRadius="30dp"
         app:layout_constraintStart_toStartOf="parent"
@@ -22,6 +25,7 @@
         <TextView
             android:layout_gravity="center"
             android:gravity="center"
+            android:fontFamily="@font/ubuntu_regular"
             android:textSize="@dimen/textsize_twentyeight"
             android:id="@+id/tvNameInitials"
             android:layout_width="@dimen/sixty_dp"
@@ -38,9 +42,11 @@
 
     <TextView
         android:id="@+id/tvName"
+        android:fontFamily="@font/ubuntu_bold"
         android:textColor="@color/black"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/ten_dp"
         android:layout_marginStart="@dimen/ten_dp"
         android:textSize="@dimen/textsize_twenty"
         app:layout_constraintStart_toEndOf="@+id/cvCircularView"
@@ -48,7 +54,8 @@
 
     <TextView
         android:id="@+id/tvEmail"
-        android:textColor="@color/colorBottomBarGrey"
+        android:fontFamily="@font/ubuntu_regular"
+        android:textColor="@color/black"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/ten_dp"
@@ -59,17 +66,21 @@
 
     <TextView
         android:id="@+id/tvMessage"
+        android:fontFamily="@font/ubuntu_regular"
+        android:textColor="@color/black"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/ten_dp"
         android:layout_marginTop="@dimen/ten_dp"
-        android:textColor="@color/colorBottomBarGrey"
         android:textSize="@dimen/textsize_fifteen"
         app:layout_constraintStart_toEndOf="@+id/cvCircularView"
         app:layout_constraintTop_toBottomOf="@+id/tvEmail" />
 
     <TextView
         android:id="@+id/tvTime"
+        android:layout_marginTop="@dimen/ten_dp"
+        android:layout_marginEnd="@dimen/five_dp"
+        android:fontFamily="@font/ubuntu_regular"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="@color/fbBlue"

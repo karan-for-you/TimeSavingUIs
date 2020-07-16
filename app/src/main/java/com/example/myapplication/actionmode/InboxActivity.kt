@@ -1,5 +1,7 @@
 package com.example.myapplication.actionmode
 
+import android.content.Context
+import android.graphics.ColorFilter
 import android.os.Bundle
 import androidx.appcompat.view.ActionMode
 import androidx.core.content.ContextCompat
@@ -26,8 +28,6 @@ class InboxActivity : BaseActivity(),  InboxAdapter.OnClickListeners {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         bindingInboxBinding = DataBindingUtil.setContentView(this,R.layout.activity_inbox)
-        setSupportActionBar(bindingInboxBinding.toolbar)
-        supportActionBar?.title = "Inbox"
         prepareActionModeCallback()
         setupViewModelAndHandler()
         setupInboxRecyclerView()
@@ -63,8 +63,13 @@ class InboxActivity : BaseActivity(),  InboxAdapter.OnClickListeners {
             inboxAdapter?.selectedInboxMessages?.clear() // Clear previous Data
             setNormalActionBarColorScheme()
             inboxAdapter?.listSelectedInbox()
-
         }
+    }
+
+    override fun onBackPressed() {
+        inboxAdapter?.setUnselected()
+        finishActionMode()
+        super.onBackPressed()
     }
 
     override fun onClicked(inbox: Inbox, position : Int, holder: InboxAdapter.InboxViewHolder) {
@@ -73,20 +78,22 @@ class InboxActivity : BaseActivity(),  InboxAdapter.OnClickListeners {
         else showToast(inbox.senderName)
     }
 
-    override fun onLongClicked(inbox: Inbox, position : Int) {
+    override fun onLongClicked(inbox: Inbox, position : Int,holder: InboxAdapter.InboxViewHolder) {
         if(actionMode == null){
             actionMode = startSupportActionMode(actionModeCallback!!)
-        }
+            inboxAdapter?.selectInboxMessages(holder, position)
+        }else inboxAdapter?.selectInboxMessages(holder, position)
     }
 
     fun setActionModeColorScheme(){
         bindingInboxBinding.toolbar.setBackgroundColor(
-            ContextCompat.getColor(this,R.color.colorRedBtn))
+            ContextCompat.getColor(this,R.color.red))
     }
 
     fun setNormalActionBarColorScheme(){
         bindingInboxBinding.toolbar.setBackgroundColor(
-            ContextCompat.getColor(this,R.color.red))
+            ContextCompat.getColor(this,R.color.colorRedBtn))
+        inboxAdapter?.setUnselected()
         finishActionMode()
     }
 

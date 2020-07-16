@@ -19,8 +19,21 @@
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="?android:attr/actionBarSize"
-        android:background="@color/red"
-        android:layout_alignParentTop="true"/>
+        android:background="@color/colorRedBtn"
+        android:layout_alignParentTop="true">
+
+
+        <TextView
+            android:id="@+id/tvInboxHeader"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="@string/inbox"
+            android:textSize="22sp"
+            android:textColor="@color/white"
+            android:fontFamily="@font/ubuntu_bold"
+            android:gravity="center"/>
+
+    </androidx.appcompat.widget.Toolbar>
 
 
     <androidx.recyclerview.widget.RecyclerView

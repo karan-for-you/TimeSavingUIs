@@ -35,7 +35,8 @@ class InboxViewModel : ViewModel() {
                 senderEmail = "himani@gmail.com",
                 message = "Send me the test report please.",
                 timeStamp = "12:30 pm",
-                colorAssociated = colorArray[Random().nextInt(colorArray.size)]
+                colorAssociated = colorArray[Random().nextInt(colorArray.size)],
+                isSelected = false
             )
         )
         inboxList.add(
@@ -44,7 +45,8 @@ class InboxViewModel : ViewModel() {
                 senderEmail = "daljeet@gmail.com",
                 message = "Black Book release manager required.",
                 timeStamp = "10:03 pm",
-                colorAssociated = colorArray[Random().nextInt(colorArray.size)]
+                colorAssociated = colorArray[Random().nextInt(colorArray.size)],
+                isSelected = false
             )
         )
         inboxList.add(
@@ -53,7 +55,8 @@ class InboxViewModel : ViewModel() {
                 senderEmail = "babban@gmail.com",
                 message = "Leaving for Gurdaspur. Have fun with PHP",
                 timeStamp = "2:12 pm",
-                colorAssociated = colorArray[Random().nextInt(colorArray.size)]
+                colorAssociated = colorArray[Random().nextInt(colorArray.size)],
+                isSelected = false
             )
         )
         inboxList.add(
@@ -62,7 +65,8 @@ class InboxViewModel : ViewModel() {
                 senderEmail = "sukirti@gmail.com",
                 message = "Gonna Smoke up and design some pages.",
                 timeStamp = "5.30 pm",
-                colorAssociated = colorArray[Random().nextInt(colorArray.size)]
+                colorAssociated = colorArray[Random().nextInt(colorArray.size)],
+                isSelected = false
             )
         )
         inboxList.add(
@@ -71,7 +75,8 @@ class InboxViewModel : ViewModel() {
                 senderEmail = "asheesh@gmail.com",
                 message = "Lets go watch some Rick and Morty.",
                 timeStamp = "9:30 am",
-                colorAssociated = colorArray[Random().nextInt(colorArray.size)]
+                colorAssociated = colorArray[Random().nextInt(colorArray.size)],
+                isSelected = false
             )
         )
         inboxList.add(
@@ -80,16 +85,18 @@ class InboxViewModel : ViewModel() {
                 senderEmail = "renu@gmail.com",
                 message = "The managers are getting on my nerves.",
                 timeStamp = "8:22 pm",
-                colorAssociated = colorArray[Random().nextInt(colorArray.size)]
+                colorAssociated = colorArray[Random().nextInt(colorArray.size)],
+                isSelected = false
             )
         )
         inboxList.add(
             Inbox(
                 senderName = "Satish Thakur",
                 senderEmail = "satish@gmail.com",
-                message = "I am gonna grid on some iOS.",
+                message = "I am gonna grind on iOS.",
                 timeStamp = "2:57 am",
-                colorAssociated = colorArray[Random().nextInt(colorArray.size)]
+                colorAssociated = colorArray[Random().nextInt(colorArray.size)],
+                isSelected = false
             )
         )
         inboxList.add(
@@ -98,7 +105,8 @@ class InboxViewModel : ViewModel() {
                 senderEmail = "nitin@gmail.com",
                 message = "i still am the number 1 on this groups list.",
                 timeStamp = "12:30 pm",
-                colorAssociated = colorArray[Random().nextInt(colorArray.size)]
+                colorAssociated = colorArray[Random().nextInt(colorArray.size)],
+                isSelected = false
             )
         )
         inboxList.add(
@@ -107,7 +115,8 @@ class InboxViewModel : ViewModel() {
                 senderEmail = "sushmit@gmail.com",
                 message = "Let's go get some coffee.",
                 timeStamp = "12:30 pm",
-                colorAssociated = colorArray[Random().nextInt(colorArray.size)]
+                colorAssociated = colorArray[Random().nextInt(colorArray.size)],
+                isSelected = false
             )
         )
         inboxList.add(
@@ -116,7 +125,8 @@ class InboxViewModel : ViewModel() {
                 senderEmail = "ankur@gmail.com",
                 message = "Please send the status mail.",
                 timeStamp = "3:49 pm",
-                colorAssociated = colorArray[Random().nextInt(colorArray.size)]
+                colorAssociated = colorArray[Random().nextInt(colorArray.size)],
+                isSelected = false
             )
         )
         inboxList.add(
@@ -125,7 +135,8 @@ class InboxViewModel : ViewModel() {
                 senderEmail = "mohit@gmail.com",
                 message = "Let's work on SMASHItv.",
                 timeStamp = "3:12 pm",
-                colorAssociated = colorArray[Random().nextInt(colorArray.size)]
+                colorAssociated = colorArray[Random().nextInt(colorArray.size)],
+                isSelected = false
             )
         )
         inboxLiveData.value = inboxList

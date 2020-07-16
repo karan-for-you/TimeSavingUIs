@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.myapplication.R
 import com.example.myapplication.model.Inbox
 import com.example.myapplication.utils.Logger
+import java.lang.Exception
 import java.util.*
 
 class InboxAdapter(
@@ -40,44 +41,46 @@ class InboxAdapter(
     override fun onBindViewHolder(holder: InboxViewHolder, position: Int) {
         holder.bindItems(inboxList[position])
         holder.itemView.setOnClickListener {
+            inboxList[position].isSelected = !inboxList[position].isSelected
             inboxClickListener.onClicked(inboxList[position], position = position, holder = holder)
         }
         holder.itemView.setOnLongClickListener {
-            inboxClickListener.onLongClicked(inboxList[position], position = position)
-            selectInboxMessages(holder, position)
+            inboxList[position].isSelected = !inboxList[position].isSelected
+            inboxClickListener.onLongClicked(inboxList[position], position = position,holder = holder)
             true
         }
     }
 
     fun selectInboxMessages(holder: InboxViewHolder, position: Int) {
-        if (!selectedInboxMessages.contains(inboxList[position])) {
+        if (inboxList[position].isSelected) {
             holder.ivCheck.visibility = View.VISIBLE
-            holder.clView.setBackgroundColor(
-                ContextCompat.getColor(
-                    context,
-                    R.color.fbBlueFaded
-                )
-            )
+            holder.clView.setBackgroundColor(ContextCompat.getColor(context, R.color.fbBlueFaded))
             selectedInboxMessages.add(inboxList[position])
         } else {
             holder.ivCheck.visibility = View.GONE
-            holder.clView.setBackgroundColor(
-                ContextCompat.getColor(
-                    context,
-                    R.color.white
-                )
-            )
+            holder.clView.setBackgroundColor(ContextCompat.getColor(context, R.color.white))
             selectedInboxMessages.remove(inboxList[position])
         }
-        if(selectedInboxMessages.size == 0)
+        if (selectedInboxMessages.size == 0)
             inboxActivity.finishActionMode()
         listSelectedInbox()
     }
 
-    fun listSelectedInbox(){
-        for(inbox in selectedInboxMessages)
-            Logger.logError("Selected",inbox.senderName)
-        Logger.logError("Size of List", ""+selectedInboxMessages.size)
+    fun listSelectedInbox() {
+        for (inbox in selectedInboxMessages)
+            Logger.logError("Selected", inbox.senderName)
+        Logger.logError("Size of List", "" + selectedInboxMessages.size)
+    }
+
+    fun setUnselected(){
+        try {
+            for(inbox in inboxList) {
+                inbox.isSelected = false
+            }
+            notifyDataSetChanged()
+        }catch (e : Exception){
+            Logger.logError("Called before pressing onBackPressed() in activity","Hanlding")
+        }
     }
 
     fun deleteSelectedInboxMessages() {
@@ -85,8 +88,8 @@ class InboxAdapter(
             if (inboxList.contains(inbox))
                 inboxList.remove(inbox)
         }
-        notifyDataSetChanged()
         selectedInboxMessages.clear() // Clearing previous data
+        notifyDataSetChanged()
     }
 
     class InboxViewHolder(view: View) : RecyclerView.ViewHolder(view) {
@@ -116,6 +119,13 @@ class InboxAdapter(
                     inbox.colorAssociated
                 )
             )
+            if(inbox.isSelected){
+                ivCheck.visibility = View.VISIBLE
+                clView.setBackgroundColor(ContextCompat.getColor(itemView.context, R.color.fbBlueFaded))
+            }else{
+                ivCheck.visibility = View.GONE
+                clView.setBackgroundColor(ContextCompat.getColor(itemView.context, R.color.white))
+            }
         }
     }
 
@@ -126,7 +136,7 @@ class InboxAdapter(
 
     interface OnClickListeners {
         fun onClicked(inbox: Inbox, position: Int, holder: InboxViewHolder)
-        fun onLongClicked(inbox: Inbox, position: Int)
+        fun onLongClicked(inbox: Inbox, position: Int, holder: InboxViewHolder)
     }
 
 }

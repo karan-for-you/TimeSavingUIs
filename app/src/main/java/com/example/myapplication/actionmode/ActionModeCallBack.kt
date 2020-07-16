@@ -9,7 +9,11 @@ class ActionModeCallBack(var inboxActivity: InboxActivity) : ActionMode.Callback
 
     override fun onActionItemClicked(mode: ActionMode?, item: MenuItem?): Boolean {
         when(item?.itemId){
-            R.id.action_delete->inboxActivity.deleteSelectedInboxMessages()
+            R.id.action_delete->{
+                inboxActivity.deleteSelectedInboxMessages()
+                mode?.finish()
+            }
+
         }
         return true
     }
