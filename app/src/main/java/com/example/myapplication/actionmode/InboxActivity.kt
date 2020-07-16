@@ -1,7 +1,5 @@
 package com.example.myapplication.actionmode
 
-import android.content.Context
-import android.graphics.ColorFilter
 import android.os.Bundle
 import androidx.appcompat.view.ActionMode
 import androidx.core.content.ContextCompat
@@ -13,17 +11,18 @@ import com.example.myapplication.R
 import com.example.myapplication.base.BaseActivity
 import com.example.myapplication.databinding.ActivityInboxBinding
 import com.example.myapplication.model.Inbox
+import com.example.myapplication.utils.Logger
 import com.example.myapplication.viewmodel.InboxViewModel
 import java.util.*
 
 class InboxActivity : BaseActivity(),  InboxAdapter.OnClickListeners {
 
-    lateinit var bindingInboxBinding : ActivityInboxBinding
-    lateinit var inboxViewModel : InboxViewModel
-    var inboxList = ArrayList<Inbox>()
-    var inboxAdapter : InboxAdapter? = null
-    var actionMode : ActionMode? = null
-    var actionModeCallback : ActionModeCallBack? = null
+    private lateinit var bindingInboxBinding : ActivityInboxBinding
+    private lateinit var inboxViewModel : InboxViewModel
+    private var inboxList = ArrayList<Inbox>()
+    private var inboxAdapter : InboxAdapter? = null
+    private var actionMode : ActionMode? = null
+    private var actionModeCallback : ActionModeCallBack? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -67,6 +66,7 @@ class InboxActivity : BaseActivity(),  InboxAdapter.OnClickListeners {
     }
 
     override fun onBackPressed() {
+        Logger.logError("Going in ","Back Pressed")
         inboxAdapter?.setUnselected()
         finishActionMode()
         super.onBackPressed()
