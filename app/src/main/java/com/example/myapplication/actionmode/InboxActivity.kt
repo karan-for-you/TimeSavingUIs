@@ -10,9 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.myapplication.R
 import com.example.myapplication.base.BaseActivity
 import com.example.myapplication.databinding.ActivityInboxBinding
-import com.example.myapplication.model.Inbox
 import com.example.myapplication.utils.Logger
-import com.example.myapplication.viewmodel.InboxViewModel
 import java.util.*
 
 class InboxActivity : BaseActivity(),  InboxAdapter.OnClickListeners {
@@ -78,7 +76,7 @@ class InboxActivity : BaseActivity(),  InboxAdapter.OnClickListeners {
         else showToast(inbox.senderName)
     }
 
-    override fun onLongClicked(inbox: Inbox, position : Int,holder: InboxAdapter.InboxViewHolder) {
+    override fun onLongClicked(inbox: Inbox, position : Int, holder: InboxAdapter.InboxViewHolder) {
         if(actionMode == null){
             actionMode = startSupportActionMode(actionModeCallback!!)
             inboxAdapter?.selectInboxMessages(holder, position)

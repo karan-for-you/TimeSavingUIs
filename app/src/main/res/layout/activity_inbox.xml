@@ -7,7 +7,7 @@
     <data>
         <variable
             name="viewModel"
-            type="com.example.myapplication.viewmodel.InboxViewModel" />
+            type="com.example.myapplication.actionmode.InboxViewModel" />
     </data>
 
 <RelativeLayout

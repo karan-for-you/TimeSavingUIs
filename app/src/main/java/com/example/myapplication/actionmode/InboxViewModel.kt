@@ -1,10 +1,9 @@
-package com.example.myapplication.viewmodel
+package com.example.myapplication.actionmode
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.myapplication.R
-import com.example.myapplication.model.Inbox
 import java.util.*
 
 class InboxViewModel : ViewModel() {
