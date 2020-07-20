@@ -1,8 +1,13 @@
 package com.example.myapplication.actionmode
 
+import android.animation.Animator
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
+import android.view.View
+import android.view.ViewAnimationUtils
 import androidx.appcompat.view.ActionMode
-import androidx.core.content.ContextCompat
+import androidx.core.view.isVisible
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -31,6 +36,17 @@ class InboxActivity : BaseActivity(),  InboxAdapter.OnClickListeners {
         inboxViewModel.prepareLiveData()
         inboxViewModel.getInboxLiveData().observe(this,
             Observer<List<Inbox>> { t -> inboxAdapter?.addData(t!!) })
+        bindingInboxBinding.ivOpenSearch.setOnClickListener { openSearch() }
+        bindingInboxBinding.ivCloseSearch.setOnClickListener { closeSearch() }
+
+        bindingInboxBinding.etSearchText.addTextChangedListener(object : TextWatcher{
+            override fun afterTextChanged(p0: Editable?) {}
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                inboxAdapter?.getFilter()?.filter(p0)
+            }
+
+        })
     }
 
     private fun prepareActionModeCallback(){
@@ -44,6 +60,7 @@ class InboxActivity : BaseActivity(),  InboxAdapter.OnClickListeners {
 
     private fun setupInboxRecyclerView(){
         inboxAdapter = InboxAdapter(inboxList,
+            inboxList,
             context = this,
             inboxClickListener = this,
             inboxActivity = this)
@@ -53,21 +70,15 @@ class InboxActivity : BaseActivity(),  InboxAdapter.OnClickListeners {
         }
     }
 
-    fun finishActionMode(){
-        if(actionMode!=null){
-            actionMode!!.finish()
-            actionMode = null
-            inboxAdapter?.selectedInboxMessages?.clear() // Clear previous Data
-            setNormalActionBarColorScheme()
-            inboxAdapter?.listSelectedInbox()
-        }
-    }
-
     override fun onBackPressed() {
         Logger.logError("Going in ","Back Pressed")
-        inboxAdapter?.setUnselected()
-        finishActionMode()
-        super.onBackPressed()
+        when {
+            bindingInboxBinding.rlSearchOpened.isVisible -> {
+                bindingInboxBinding.ivCloseSearch.performClick()
+                inboxAdapter?.setUnselected()
+            }
+            else -> finish()
+        }
     }
 
     override fun onClicked(inbox: Inbox, position : Int, holder: InboxAdapter.InboxViewHolder) {
@@ -77,27 +88,62 @@ class InboxActivity : BaseActivity(),  InboxAdapter.OnClickListeners {
     }
 
     override fun onLongClicked(inbox: Inbox, position : Int, holder: InboxAdapter.InboxViewHolder) {
-        if(actionMode == null){
-            actionMode = startSupportActionMode(actionModeCallback!!)
-            inboxAdapter?.selectInboxMessages(holder, position)
-        }else inboxAdapter?.selectInboxMessages(holder, position)
+        if(!bindingInboxBinding.rlSearchOpened.isVisible) {
+            if (actionMode == null) {
+                actionMode = startSupportActionMode(actionModeCallback!!)
+                inboxAdapter?.selectInboxMessages(holder, position)
+            } else inboxAdapter?.selectInboxMessages(holder, position)
+        }
     }
 
-    fun setActionModeColorScheme(){
-        bindingInboxBinding.toolbar.setBackgroundColor(
-            ContextCompat.getColor(this,R.color.red))
-    }
-
-    fun setNormalActionBarColorScheme(){
-        bindingInboxBinding.toolbar.setBackgroundColor(
-            ContextCompat.getColor(this,R.color.colorRedBtn))
+    // Upon selection of Back icon on action mode toolbar
+    fun clearMessagesAndResetUI(){
         inboxAdapter?.setUnselected()
-        finishActionMode()
+        inboxAdapter?.selectedInboxMessages?.clear() // Clear previous Data
+        if(actionMode!=null) {
+            actionMode!!.finish()
+            actionMode = null
+        }
     }
 
     fun deleteSelectedInboxMessages(){
         inboxAdapter?.deleteSelectedInboxMessages()
-        finishActionMode()
+        clearMessagesAndResetUI()
+    }
+
+    private fun openSearch() {
+        bindingInboxBinding.etSearchText.setText("")
+        bindingInboxBinding.rlSearchOpened.visibility = View.VISIBLE
+        val circularReveal = ViewAnimationUtils.createCircularReveal(
+            bindingInboxBinding.rlSearchOpened,
+            (bindingInboxBinding.ivOpenSearch.right + bindingInboxBinding.ivOpenSearch.left) / 2,
+            (bindingInboxBinding.ivOpenSearch.top + bindingInboxBinding.ivOpenSearch.bottom) / 2,
+            0f, bindingInboxBinding.flSearchBar.width.toFloat() - 100
+        )
+        circularReveal.duration = 300
+        circularReveal.start()
+    }
+
+    private fun closeSearch() {
+        val circularConceal = ViewAnimationUtils.createCircularReveal(
+            bindingInboxBinding.rlSearchOpened,
+            (bindingInboxBinding.ivOpenSearch.right + bindingInboxBinding.ivOpenSearch.left) / 2,
+            (bindingInboxBinding.ivOpenSearch.top + bindingInboxBinding.ivOpenSearch.bottom) / 2,
+            bindingInboxBinding.flSearchBar.width.toFloat(), 0f
+        )
+
+        circularConceal.duration = 300
+        circularConceal.start()
+        circularConceal.addListener(object : Animator.AnimatorListener {
+            override fun onAnimationRepeat(animation: Animator?) = Unit
+            override fun onAnimationCancel(animation: Animator?) = Unit
+            override fun onAnimationStart(animation: Animator?) = Unit
+            override fun onAnimationEnd(animation: Animator?) {
+                bindingInboxBinding.rlSearchOpened.visibility = View.INVISIBLE
+                bindingInboxBinding.etSearchText.setText("")
+                circularConceal.removeAllListeners()
+            }
+        })
     }
 
 }

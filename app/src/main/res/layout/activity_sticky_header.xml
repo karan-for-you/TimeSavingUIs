@@ -10,15 +10,10 @@
     tools:context=".stickyheaderlibrary.StickyHeaderActivity">
 
 
-    <com.example.myapplication.searchreveal.SearchView
-        android:id="@+id/svToolbar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"/>
+
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvStickyHeader"
-        android:layout_below="@id/svToolbar"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 

@@ -15,7 +15,86 @@
     android:layout_height="match_parent"
     tools:context=".actionmode.InboxActivity">
 
-    <androidx.appcompat.widget.Toolbar
+    <FrameLayout
+        android:id="@+id/flSearchBar"
+        android:layout_width="match_parent"
+        android:layout_height="?actionBarSize"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <RelativeLayout
+            android:id="@+id/rlClosedSearchView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:background="@color/colorPrimary">
+
+            <TextView
+                android:id="@+id/tvInbox"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/inbox"
+                android:textSize="@dimen/textsize_twenty"
+                android:textColor="@color/white"
+                android:fontFamily="@font/ubuntu_regular"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="@dimen/ten_dp"/>
+
+            <ImageView
+                android:id="@+id/ivOpenSearch"
+                android:layout_width="@dimen/twentyfour_dp"
+                android:layout_height="@dimen/twentyfour_dp"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="16dp"
+                android:background="@drawable/ic_baseline_search_24" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/rlSearchOpened"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_margin="4dp"
+            android:background="@drawable/rounded_corner_background"
+            android:visibility="invisible">
+
+            <ImageView
+                android:id="@+id/ivCloseSearch"
+                android:layout_width="@dimen/twentyfour_dp"
+                android:layout_height="@dimen/twentyfour_dp"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="16dp"
+                android:background="@drawable/ic_baseline_arrow_back_24"
+                android:backgroundTint="@color/colorPrimary" />
+
+            <EditText
+                android:id="@+id/etSearchText"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_toStartOf="@id/ivStartSearch"
+                android:layout_toEndOf="@id/ivCloseSearch" />
+
+            <ImageView
+                android:id="@+id/ivStartSearch"
+                android:layout_width="@dimen/twentyfour_dp"
+                android:layout_height="@dimen/twentyfour_dp"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="16dp"
+                android:background="@drawable/ic_baseline_send_24"
+                android:backgroundTint="@color/colorPrimary" />
+
+        </RelativeLayout>
+
+    </FrameLayout>
+
+    <!--<androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="?android:attr/actionBarSize"
@@ -33,14 +112,14 @@
             android:fontFamily="@font/ubuntu_bold"
             android:gravity="center"/>
 
-    </androidx.appcompat.widget.Toolbar>
+    </androidx.appcompat.widget.Toolbar>-->
 
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewInbox"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/toolbar"/>
+        android:layout_below="@id/flSearchBar"/>
 
 </RelativeLayout>
 

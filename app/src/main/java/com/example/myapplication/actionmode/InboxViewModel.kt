@@ -8,6 +8,8 @@ import java.util.*
 
 class InboxViewModel : ViewModel() {
 
+
+
     var colorArray = arrayOf(
         R.color.colorGreenBtn,
         R.color.colorGreenBtnFade,

@@ -10,13 +10,73 @@
     tools:context=".searchreveal.SearchActivity">
 
 
-    <com.example.myapplication.searchreveal.SearchView
-        android:id="@+id/svToolbar"
+    <FrameLayout
+        android:id="@+id/flSearchBar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="?actionBarSize"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent">
+
+        <RelativeLayout
+            android:id="@+id/rlClosedSearchView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:background="@color/colorPrimary">
+
+            <ImageView
+                android:id="@+id/ivOpenSearch"
+                android:layout_width="@dimen/twentyfour_dp"
+                android:layout_height="@dimen/twentyfour_dp"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="16dp"
+                android:background="@drawable/ic_baseline_search_24" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/rlSearchOpened"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_margin="4dp"
+            android:background="@drawable/rounded_corner_background"
+            android:visibility="invisible">
+
+            <ImageView
+                android:id="@+id/ivCloseSearch"
+                android:layout_width="@dimen/twentyfour_dp"
+                android:layout_height="@dimen/twentyfour_dp"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="16dp"
+                android:background="@drawable/ic_baseline_arrow_back_24"
+                android:backgroundTint="@color/colorPrimary" />
+
+            <EditText
+                android:id="@+id/etSearchText"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_toStartOf="@id/ivStartSearch"
+                android:layout_toEndOf="@id/ivCloseSearch" />
+
+            <ImageView
+                android:id="@+id/ivStartSearch"
+                android:layout_width="@dimen/twentyfour_dp"
+                android:layout_height="@dimen/twentyfour_dp"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="16dp"
+                android:background="@drawable/ic_baseline_send_24"
+                android:backgroundTint="@color/colorPrimary" />
+
+        </RelativeLayout>
+
+    </FrameLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 

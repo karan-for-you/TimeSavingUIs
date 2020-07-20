@@ -13,13 +13,11 @@ class ActionModeCallBack(var inboxActivity: InboxActivity) : ActionMode.Callback
                 inboxActivity.deleteSelectedInboxMessages()
                 mode?.finish()
             }
-
         }
         return true
     }
 
     override fun onCreateActionMode(mode: ActionMode?, menu: Menu?): Boolean {
-        inboxActivity.setActionModeColorScheme()
         mode?.menuInflater?.inflate(R.menu.action_mode_menu,menu)
         return true
     }
@@ -29,7 +27,7 @@ class ActionModeCallBack(var inboxActivity: InboxActivity) : ActionMode.Callback
     }
 
     override fun onDestroyActionMode(mode: ActionMode?) {
-        inboxActivity.setNormalActionBarColorScheme()
+        inboxActivity.clearMessagesAndResetUI()
 
     }
 }
