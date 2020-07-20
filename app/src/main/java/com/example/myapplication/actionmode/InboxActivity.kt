@@ -73,10 +73,8 @@ class InboxActivity : BaseActivity(),  InboxAdapter.OnClickListeners {
     override fun onBackPressed() {
         Logger.logError("Going in ","Back Pressed")
         when {
-            bindingInboxBinding.rlSearchOpened.isVisible -> {
+            bindingInboxBinding.rlSearchOpened.isVisible ->
                 bindingInboxBinding.ivCloseSearch.performClick()
-                inboxAdapter?.setUnselected()
-            }
             else -> finish()
         }
     }
@@ -125,6 +123,7 @@ class InboxActivity : BaseActivity(),  InboxAdapter.OnClickListeners {
     }
 
     private fun closeSearch() {
+        inboxAdapter?.setUnselected()
         val circularConceal = ViewAnimationUtils.createCircularReveal(
             bindingInboxBinding.rlSearchOpened,
             (bindingInboxBinding.ivOpenSearch.right + bindingInboxBinding.ivOpenSearch.left) / 2,

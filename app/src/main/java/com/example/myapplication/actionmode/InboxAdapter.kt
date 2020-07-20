@@ -1,5 +1,6 @@
 package com.example.myapplication.actionmode
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
@@ -16,7 +17,7 @@ import java.util.*
 
 class InboxAdapter(
     var inboxList: ArrayList<Inbox>,
-    var filteredInboxList : ArrayList<Inbox>,
+    var filteredInboxList : ArrayList<Inbox>, // In case of removal of Filtering - Remove this
     var context: Context,
     var inboxClickListener: OnClickListeners,
     var inboxActivity: InboxActivity
@@ -88,6 +89,7 @@ class InboxAdapter(
             if (filteredInboxList.contains(inbox))
                 filteredInboxList.remove(inbox)
         }
+        inboxList = filteredInboxList
         notifyDataSetChanged()
         selectedInboxMessages.clear() // Clearing previous data
     }
@@ -143,6 +145,7 @@ class InboxAdapter(
 
     fun getFilter(): Filter? {
         return object : Filter() {
+            @SuppressLint("DefaultLocale")
             override fun performFiltering(charSequence: CharSequence): FilterResults? {
                 val charString = charSequence.toString()
                 filteredInboxList = if (charString.isEmpty()) {
